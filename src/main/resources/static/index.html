@@ -1,0 +1,48 @@
+<html ng-app="beer">
+<head>
+    <title>What beer is in stock?</title>
+
+    <script src="node_modules/angular/angular.js"></script>
+    <script src="js/app.js"></script>
+</head>
+<body ng-app ng-controller="MainController as main" ng-init="main.list()">
+    <div id="beer-list" ng-show="main.showList">
+        <h1>Beer in Stock</h1>
+        <table>
+            <tr>
+                <th>Name</th>
+                <th>Style</th>
+                <th>ABV (%)</th>
+            </tr>
+            <tr ng-repeat="beer in main.beers">
+                <td>{{beer.name}}</td>
+                <td>{{beer.style}}</td>
+                <td>{{beer.abv}}</td>
+                <td><a href="#" ng-click="main.goToEdit(beer)">Edit</a></td>
+                <td><a href="#" ng-click="main.delete(beer)">Delete</a></td>
+            </tr>
+        </table>
+        <a href="#" ng-click="main.goToAdd()">Add some beer</a>
+    </div>
+    <div id="beer-detail" ng-hide="main.showList">
+        <a href="/">&lt; Back to Beer List</a>
+        <br/>
+
+        <form ng-submit="main.save(main.activeBeer)">
+        <label for="name">Name: </label>
+            <input type="text" id="name" name="name" ng-model="main.activeBeer.name"/>
+            <br/>
+
+            <label for="style">Style: </label>
+            <input type="text" id="style" name="style" ng-model="main.activeBeer.style"/>
+            <br/>
+
+            <label for="abv">ABV (%): </label>
+            <input type="text" id="abv" name="abv" ng-model="main.activeBeer.abv"/>
+            <br/>
+
+            <input type="submit"/>
+        </form>
+    </div>
+</body>
+</html>
